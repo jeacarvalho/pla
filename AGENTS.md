@@ -419,6 +419,50 @@ Idiomatismo: Use o ImporterProtocol nativo do Beancount para novos importadores.
 
 Tratamento de Moeda: A moeda padrão é BRL. Use ponto para decimais (1234.56 BRL).
 
+### Contabilidade Beancount - Regras Fundamentais
+
+Beancount usa contabilidade de **partidas dobradas**. Cada transação deve somar ZERO.
+
+#### Significado dos Saldos por Tipo de Conta
+
+| Tipo | Saldo Positivo | Saldo Negativo |
+|------|----------------|----------------|
+| **Assets** (Ativo) | Tenho dinheiro | Não tenho dinheiro |
+| **Liabilities** (Passivo) | Não devo (errado!) | Devo (dívida) |
+| **Expenses** (Despesa) | Gasto realizado | - |
+| **Income** (Receita) | Receita recebida | - |
+
+#### Cartão de Crédito - Fluxo Completo
+
+**Compra durante o mês:**
+```
+2024-01-15 * "Mercado"
+  Expenses:Mercado               100.00 BRL
+  Liabilities:Cartao:Saraiva   -100.00 BRL   ← dívida negativa
+```
+→ Passivo fica em -100 (dívida de 100)
+
+**Pagamento da fatura (mês seguinte):**
+```
+2024-02-10 * "Pagamento de fatura - Saraiva"
+  Liabilities:Cartao:Saraiva    100.00 BRL   ← positivo = QUITA dívida
+  Assets:BR:BbCorrente        -100.00 BRL   ← negativo = dinheiro sai
+```
+→ Passivo volta para 0 (dívida quitada)
+
+#### Regra Importantíssima
+
+- **Para quitar dívida em Liabilities**: lançamento **POSITIVO** (aumenta o valor, reduzindo a dívida)
+- **Para quitar dívida em Assets**: lançamento **NEGATIVO** (diminui o saldo)
+- **NUNCA** ambas as pontas da partida dobrada devem ter o mesmo sinal
+
+#### Despesa vs Transferência
+
+- **Despesa**: D/R = "D" sem par → Expense+ / Asset-
+- **Receita**: D/R = "R" sem par → Asset+ / Income-
+- **Transferência**: D + R pareados por valor (±2 dias) → Asset- / Asset+
+- **Pagamento Cartão**: D com Categoria="Outros" + descrição com "pagamento/fatura" → Liabilities:+ / Asset:-
+
 6. Roadmap de Desenvolvimento
 [ ] Fase 1: Setup de ambiente e diretórios.
 
