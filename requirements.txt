@@ -2,3 +2,5 @@ beancount
 fava
 pyyaml
 requests
+pandas
+openpyxl
