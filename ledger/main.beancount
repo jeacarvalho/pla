@@ -1,0 +1,7 @@
+option "title" "Minha Contabilidade Pessoal"
+option "operating_currency" "BRL"
+
+include "accounts.beancount"
+include "history.beancount"
+include "imports.beancount"
+include "budget.beancount"

@@ -1,0 +1,42 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dados sensíveis (NUNCA versionar)
+data/
+*.csv
+*.json
+*.xml
+*.env
+*.env.local
+*.sqlite
+*.db
+
+# Beancount
+*.bean.backup
+*.bean~
+
+# Logs
+*.log
+
+# Temporários
+tmp/
+temp/
