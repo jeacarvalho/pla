@@ -200,11 +200,15 @@ def generate_accounts_file(
     lines.append("")
     lines.append("; Expenses (Categorias de despesa)")
     for exp in expenses:
+        if "transferencia" in exp.lower():
+            continue
         lines.append(f'2024-01-01 open Expenses:{exp} BRL "STRICT"')
 
     lines.append("")
     lines.append("; Income (Categorias de receita)")
     for inc in incomes:
+        if "transferencia" in inc.lower():
+            continue
         lines.append(f'2024-01-01 open Income:{inc} BRL "STRICT"')
 
     with open(output_path, "w", encoding="utf-8") as f:
@@ -228,6 +232,7 @@ def generate_history_file(
     transactions = sorted(transactions, key=lambda x: (x["date"], x["desc"]))
 
     regular_entries = []
+    all_transfers = []
 
     for txn in transactions:
         if txn["account_name"].lower() == skip_account.lower():
@@ -262,20 +267,103 @@ def generate_history_file(
             account_name,
         )
 
-        regular_entries.append(
-            {
-                "date": date,
-                "flag": flag,
-                "desc": desc,
-                "category": category,
-                "value": value,
-                "asset_account": asset_account,
-                "liability_account": liability_account,
-                "account_type": account_type,
-                "origin_id": origin_id,
-                "is_transfer": "transferencia" in category.lower(),
-            }
+        is_transfer = (
+            "transferencia" in category.lower()
+            or "transfer" in desc.lower()
+            or "pagto cartao" in desc.lower()
+            or "pagamento de fatura" in desc.lower()
         )
+
+        if is_transfer:
+            all_transfers.append(
+                {
+                    "date": date,
+                    "flag": flag,
+                    "desc": desc,
+                    "value": value,
+                    "account_name": account_name,
+                    "account_type": account_type,
+                    "asset_account": asset_account,
+                    "liability_account": liability_account,
+                    "origin_id": origin_id,
+                }
+            )
+        else:
+            regular_entries.append(
+                {
+                    "date": date,
+                    "flag": flag,
+                    "desc": desc,
+                    "category": category,
+                    "value": value,
+                    "asset_account": asset_account,
+                    "liability_account": liability_account,
+                    "account_type": account_type,
+                    "origin_id": origin_id,
+                }
+            )
+
+    paired = set()
+
+    for i, t1 in enumerate(all_transfers):
+        if i in paired:
+            continue
+        for j, t2 in enumerate(all_transfers):
+            if j <= i or j in paired:
+                continue
+            if t1["date"] != t2["date"]:
+                continue
+            if abs(abs(t1["value"]) - abs(t2["value"])) > 0.01:
+                continue
+
+            paired.add(i)
+            paired.add(j)
+
+            val1 = t1["value"]
+            val2 = t2["value"]
+
+            if t1["account_type"] == "Assets" and t2["account_type"] == "Assets":
+                from_acc = t1["asset_account"] if val1 < 0 else t2["asset_account"]
+                to_acc = t2["asset_account"] if val2 > 0 else t1["asset_account"]
+            elif (
+                t1["account_type"] == "Liabilities"
+                and t2["account_type"] == "Liabilities"
+            ):
+                from_acc = (
+                    t1["liability_account"] if val1 < 0 else t2["liability_account"]
+                )
+                to_acc = (
+                    t2["liability_account"] if val2 > 0 else t1["liability_account"]
+                )
+            elif t1["account_type"] == "Assets" and t2["account_type"] == "Liabilities":
+                if val1 < 0:
+                    from_acc = t1["asset_account"]
+                    to_acc = t2["liability_account"]
+                else:
+                    from_acc = t2["liability_account"]
+                    to_acc = t1["asset_account"]
+            elif t1["account_type"] == "Liabilities" and t2["account_type"] == "Assets":
+                if val2 < 0:
+                    from_acc = t2["asset_account"]
+                    to_acc = t1["liability_account"]
+                else:
+                    from_acc = t1["liability_account"]
+                    to_acc = t2["asset_account"]
+            else:
+                continue
+
+            abs_val = abs(t1["value"])
+            lines.append(f'{t1["date"]} {t1["flag"]} "{t1["desc"]}"')
+            lines.append(f"  {from_acc:40s} {abs_val:.2f} BRL")
+            lines.append(f"  {to_acc:40s} -{abs_val:.2f} BRL")
+            lines.append(f'  origem_id: "{t1["origin_id"]}"')
+            lines.append("")
+            break
+
+    for i, t in enumerate(all_transfers):
+        if i in paired:
+            continue
+        continue
 
     for entry in regular_entries:
         date = entry["date"]

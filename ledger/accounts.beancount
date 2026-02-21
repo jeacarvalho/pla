@@ -40,11 +40,9 @@
 2024-01-01 open Expenses:Seguro BRL "STRICT"
 2024-01-01 open Expenses:Semparar BRL "STRICT"
 2024-01-01 open Expenses:Suplementos BRL "STRICT"
-2024-01-01 open Expenses:Transferencias BRL "STRICT"
 2024-01-01 open Expenses:Viagem BRL "STRICT"
 
 ; Income (Categorias de receita)
 2024-01-01 open Income:Emprestimos BRL "STRICT"
 2024-01-01 open Income:OutrasReceitas BRL "STRICT"
 2024-01-01 open Income:Salario BRL "STRICT"
-2024-01-01 open Income:Transferencias BRL "STRICT"
