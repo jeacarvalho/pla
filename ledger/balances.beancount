@@ -33,3 +33,11 @@
   Liabilities:Cartao:Saraiva               -4805.97 BRL
   Equity:SaldoInicial                     4805.97 BRL
 
+2026-02-28 * "Saldo inicial - CDB E Fundos Daycoval"
+  Assets:BR:CdbEFundosDaycoval          64923.07 BRL
+  Equity:SaldoInicial                   -64923.07 BRL
+
+2026-02-28 * "Saldo inicial - Tesouro Easy Invest"
+  Assets:BR:TesouroEasyinvest            2260.84 BRL
+  Equity:SaldoInicial                   -2260.84 BRL
+
