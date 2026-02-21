@@ -223,6 +223,26 @@ Sistema de gestão financeira pessoal com controle de:
 - **Linter (Ruff)**: `cd backend && ruff check app/`
 - **Cobertura**: `cd backend && python3 -m pytest --cov=backend/app --cov-report=term-missing`
 
+---
+
+### Importação Organizze (Pipeline de Processamento)
+
+Para importar dados do Organizze para o Beancount, execute a pipeline completa:
+
+```bash
+# Executa as 3 etapas automaticamente:
+# 1. consolidate.py  - Consolida arquivos XLS em unificado.xlsx
+# 2. etapa1_dr.py    - Adiciona coluna D/R (Despesa/Receita)
+# 3. etapa2_ordenar.py - Ordena por Data e Valor
+
+python3 run_pipeline.py
+```
+
+**Arquivos de entrada**: `data/*_01_01_2021_a_*.xls` (exportados do Organizze)
+**Arquivo de saída**: `data/unificado_dr_ordenado.xlsx` (11.199 lançamentos de 2021-2026)
+
+**Contas identificadas**: 19 contas (BbCorrente, BancoInter, C6Bank, Carteira, etc)
+
 ### Configuração de Ambientes (DEV/PROD)
 
 O sistema suporta configuração flexível via variáveis de ambiente para facilitar a troca entre ambientes.
