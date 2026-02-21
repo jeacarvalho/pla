@@ -1,15 +1,27 @@
-; Saldos Iniciais - Data: 31/12/2025
-; Usamos Equity para representar o patrimônio inicial
-; Isso cria as transações que geram os saldos bancários
+; Saldos Iniciais - Data: 28/02/2026
+; Contabilidade de Partidas Dobradas
 
-2025-12-31 * "Saldo inicial Banco Inter"
-  Assets:BR:BancoInter                        4850.71 BRL
-  Equity:SaldoInicial                        -4850.71 BRL
+2026-02-28 * "Saldo inicial - Tesouro Direto Inter"
+  Assets:BR:TesouroDiretoInter            75540.90 BRL
+  Equity:SaldoInicial                   -75540.90 BRL
 
-2025-12-31 * "Saldo inicial BB Corrente"
-  Assets:BR:BbCorrente                        3865.32 BRL
-  Equity:SaldoInicial                        -3865.32 BRL
+2026-02-28 * "Saldo inicial - Renda Variável Inter"
+  Assets:BR:RendaVariavelInter           55542.32 BRL
+  Equity:SaldoInicial                   -55542.32 BRL
 
-2025-12-31 * "Saldo inicial C6 Bank"
-  Assets:BR:C6Bank                              0.06 BRL
-  Equity:SaldoInicial                           -0.06 BRL
+2026-02-28 * "Saldo inicial - Carteira"
+  Assets:BR:Carteira                        40.00 BRL
+  Equity:SaldoInicial                      -40.00 BRL
+
+2026-02-28 * "Saldo inicial - Caixa"
+  Assets:BR:Caixa                           19.93 BRL
+  Equity:SaldoInicial                      -19.93 BRL
+
+2026-02-28 * "Saldo inicial - BB Corrente"
+  Assets:BR:BbCorrente                   14983.40 BRL
+  Equity:SaldoInicial                   -14983.40 BRL
+
+2026-02-28 * "Saldo inicial - Banco Inter"
+  Assets:BR:BancoInter                     170.19 BRL
+  Equity:SaldoInicial                     -170.19 BRL
+
