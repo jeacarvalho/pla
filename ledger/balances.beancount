@@ -25,3 +25,11 @@
   Assets:BR:BancoInter                     170.19 BRL
   Equity:SaldoInicial                     -170.19 BRL
 
+2026-02-28 * "Saldo inicial - Cartão de crédito Inter"
+  Liabilities:Cartao:CartaoDeCreditoInter  -7985.38 BRL
+  Equity:SaldoInicial                     7985.38 BRL
+
+2026-02-28 * "Saldo inicial - Saraiva"
+  Liabilities:Cartao:Saraiva               -4805.97 BRL
+  Equity:SaldoInicial                     4805.97 BRL
+
