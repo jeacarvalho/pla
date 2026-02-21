@@ -3,24 +3,48 @@
 
 ; Assets (Contas bancárias)
 2024-01-01 open Assets:BR:BancoInter BRL "STRICT"
-
-; Expenses (Categorias de despesa)
-2024-01-01 open Expenses:AjudaBrunaIsabela BRL "STRICT"
-2024-01-01 open Expenses:CarolCuidadosPessoais BRL "STRICT"
-2024-01-01 open Expenses:EduardoCuidadosPessoais BRL "STRICT"
-2024-01-01 open Expenses:FamiliaDadi BRL "STRICT"
-2024-01-01 open Expenses:InternetTvCelulares BRL "STRICT"
-2024-01-01 open Expenses:Iptu BRL "STRICT"
-2024-01-01 open Expenses:Manutencoes BRL "STRICT"
-2024-01-01 open Expenses:Medicamentos BRL "STRICT"
-2024-01-01 open Expenses:Ofertas BRL "STRICT"
-2024-01-01 open Expenses:PagamentoDeFatura BRL "STRICT"
-2024-01-01 open Expenses:ProfissionaisSaude BRL "STRICT"
-2024-01-01 open Expenses:Transferencias BRL "STRICT"
-
-; Income (Categorias de receita)
-2024-01-01 open Income:OutrasReceitas BRL "STRICT"
-2024-01-01 open Income:Transferencias BRL "STRICT"
+2024-01-01 open Assets:BR:BbCorrente BRL "STRICT"
+2024-01-01 open Assets:BR:C6Bank BRL "STRICT"
 
 ; Liabilities (Cartões de crédito)
-; Adicionar cartões manualmente conforme necessidade
+2024-01-01 open Liabilities:Cartao:CartaoDeCreditoInter BRL "STRICT"
+2024-01-01 open Liabilities:Cartao:MastercardC6Bank BRL "STRICT"
+2024-01-01 open Liabilities:Cartao:Saraiva BRL "STRICT"
+2024-01-01 open Liabilities:Cartao:SmilesBbPlatinum BRL "STRICT"
+
+; Expenses (Categorias de despesa)
+2024-01-01 open Expenses:Agua BRL "STRICT"
+2024-01-01 open Expenses:AjudaBrunaIsabela BRL "STRICT"
+2024-01-01 open Expenses:AnaCuidadosPessoais BRL "STRICT"
+2024-01-01 open Expenses:BaresERestaurantes BRL "STRICT"
+2024-01-01 open Expenses:CarolCuidadosPessoais BRL "STRICT"
+2024-01-01 open Expenses:CasaCuidadosPessoais BRL "STRICT"
+2024-01-01 open Expenses:CinemaEAluguelDeVideosEMusica BRL "STRICT"
+2024-01-01 open Expenses:Diversos BRL "STRICT"
+2024-01-01 open Expenses:EduardoCuidadosPessoais BRL "STRICT"
+2024-01-01 open Expenses:FamiliaDadi BRL "STRICT"
+2024-01-01 open Expenses:Gasolina BRL "STRICT"
+2024-01-01 open Expenses:ImpostosETaxas BRL "STRICT"
+2024-01-01 open Expenses:InternetTvCelulares BRL "STRICT"
+2024-01-01 open Expenses:Iptu BRL "STRICT"
+2024-01-01 open Expenses:Livros BRL "STRICT"
+2024-01-01 open Expenses:Luz BRL "STRICT"
+2024-01-01 open Expenses:Manutencoes BRL "STRICT"
+2024-01-01 open Expenses:Medicamentos BRL "STRICT"
+2024-01-01 open Expenses:Mercado BRL "STRICT"
+2024-01-01 open Expenses:Mobilia BRL "STRICT"
+2024-01-01 open Expenses:Ofertas BRL "STRICT"
+2024-01-01 open Expenses:PagamentoDeFatura BRL "STRICT"
+2024-01-01 open Expenses:Portugal202606 BRL "STRICT"
+2024-01-01 open Expenses:ProfissionaisSaude BRL "STRICT"
+2024-01-01 open Expenses:Seguro BRL "STRICT"
+2024-01-01 open Expenses:Semparar BRL "STRICT"
+2024-01-01 open Expenses:Suplementos BRL "STRICT"
+2024-01-01 open Expenses:Transferencias BRL "STRICT"
+2024-01-01 open Expenses:Viagem BRL "STRICT"
+
+; Income (Categorias de receita)
+2024-01-01 open Income:Emprestimos BRL "STRICT"
+2024-01-01 open Income:OutrasReceitas BRL "STRICT"
+2024-01-01 open Income:Salario BRL "STRICT"
+2024-01-01 open Income:Transferencias BRL "STRICT"
