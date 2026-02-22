@@ -1,23 +1,9 @@
 ; ---------------------------------------------------------
-; DASHBOARD DE AUDITORIA E PENDÊNCIAS (PROVIDENTIA)
+; DASHBOARD DE PENDÊNCIAS
+; Lista todas as transações que precisam de conciliação
 ; ---------------------------------------------------------
-2026-02-22 query "⚠️ Transferências Órfãs" "
-SELECT date, payee, narrative, position
-WHERE account ~ 'Equity:TransferenciasPendentes'
-ORDER BY date DESC
-"
-
-2026-02-22 query "📅 Lançamentos Pendentes (!)" "
-SELECT date, payee, narrative, position
-WHERE flag = '!'
-ORDER BY date DESC
-"
-
-2026-02-22 query "💰 Posição de Caixa Líquida" "
-SELECT
-account,
-sum(position) as saldo
-WHERE account ~ 'Assets:BR' OR account ~ 'Liabilities:Cartao'
-GROUP BY account
-ORDER BY account
+2026-02-22 query "⚠️ Pendências" "
+SELECT date, flag, description, account, position
+WHERE flag = '!' OR account = 'Equity:TransferenciasPendentes'
+ORDER BY date
 "
