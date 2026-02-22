@@ -421,12 +421,12 @@
   Assets:BR:C6Bank                            4000.21 BRL
   origem_id: "transfer_pair:5f6597379a66c3de"
 
-2026-02-28 * "Transferência"
+2026-02-28 ! "Transferência"
   Assets:BR:BbCorrente                       -3500.00 BRL
   Assets:BR:BancoInter                        3500.00 BRL
   origem_id: "transfer_pair:b0107ff23d662937"
 
-2026-02-28 * "pagto cartão"
+2026-02-28 ! "pagto cartão"
   Assets:BR:BbCorrente                      -12000.00 BRL
   Assets:BR:C6Bank                           12000.00 BRL
   origem_id: "transfer_pair:96311bbf0e85fd04"
