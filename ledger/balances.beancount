@@ -1,43 +1,43 @@
-; Saldos Iniciais - Data: 31/12/2021
+; Saldos Iniciais - Data: 31/12/2020
 ; Contabilidade de Partidas Dobradas
 
-2021-12-31 * "Saldo inicial - Tesouro Direto Inter"
+2020-12-31 * "Saldo inicial - Tesouro Direto Inter"
   Assets:BR:TesouroDiretoInter            75540.90 BRL
   Equity:SaldoInicial                   -75540.90 BRL
 
-2021-12-31 * "Saldo inicial - Renda Variável Inter"
+2020-12-31 * "Saldo inicial - Renda Variável Inter"
   Assets:BR:RendaVariavelInter           55542.32 BRL
   Equity:SaldoInicial                   -55542.32 BRL
 
-2021-12-31 * "Saldo inicial - Carteira"
+2020-12-31 * "Saldo inicial - Carteira"
   Assets:BR:Carteira                        40.00 BRL
   Equity:SaldoInicial                      -40.00 BRL
 
-2021-12-31 * "Saldo inicial - Caixa"
+2020-12-31 * "Saldo inicial - Caixa"
   Assets:BR:Caixa                           19.93 BRL
   Equity:SaldoInicial                      -19.93 BRL
 
-2021-12-31 * "Saldo inicial - BB Corrente"
+2020-12-31 * "Saldo inicial - BB Corrente"
   Assets:BR:BbCorrente                   14983.40 BRL
   Equity:SaldoInicial                   -14983.40 BRL
 
-2021-12-31 * "Saldo inicial - Banco Inter"
+2020-12-31 * "Saldo inicial - Banco Inter"
   Assets:BR:BancoInter                     170.19 BRL
   Equity:SaldoInicial                     -170.19 BRL
 
-2021-12-31 * "Saldo inicial - Cartão de crédito Inter"
+2020-12-31 * "Saldo inicial - Cartão de crédito Inter"
   Liabilities:Cartao:CartaoDeCreditoInter  -7985.38 BRL
   Equity:SaldoInicial                     7985.38 BRL
 
-2021-12-31 * "Saldo inicial - Saraiva"
+2020-12-31 * "Saldo inicial - Saraiva"
   Liabilities:Cartao:Saraiva               -4805.97 BRL
   Equity:SaldoInicial                     4805.97 BRL
 
-2021-12-31 * "Saldo inicial - CDB E Fundos Daycoval"
+2020-12-31 * "Saldo inicial - CDB E Fundos Daycoval"
   Assets:BR:CdbEFundosDaycoval          64923.07 BRL
   Equity:SaldoInicial                   -64923.07 BRL
 
-2021-12-31 * "Saldo inicial - Tesouro Easy Invest"
+2020-12-31 * "Saldo inicial - Tesouro Easy Invest"
   Assets:BR:TesouroEasyinvest            2260.84 BRL
   Equity:SaldoInicial                   -2260.84 BRL
 
