@@ -7,3 +7,14 @@ SELECT date, flag, description, account, position
 WHERE flag = '!' OR account = 'Equity:TransferenciasPendentes'
 ORDER BY date
 "
+
+2026-02-22 query "⚠️ liquidez projetada" "
+SELECT
+  account,
+  sum(ifelse(flag = '*', position, null)) as Saldo_Real,
+  sum(ifelse(flag = '!', position, null)) as Comprometido,
+  sum(position) as Saldo_Projetado
+WHERE account ~ 'Assets:BR|Liabilities:Cartao'
+GROUP BY account
+ORDER BY account
+```"
