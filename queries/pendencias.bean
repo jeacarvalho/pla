@@ -1,0 +1,10 @@
+; Dashboard de Pendências
+; Lista todas as transações que precisam de conciliação
+; Execute: bean-query ledger/main.beancount queries/pendencias.bean
+
+SELECT
+  date, flag, description, account, position, balance
+WHERE 
+  flag = '!' 
+  OR account = 'Equity:TransferenciasPendentes'
+ORDER BY date
