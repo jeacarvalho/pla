@@ -15,7 +15,7 @@ from typing import Optional
 import pandas as pd
 
 
-ACCOUNTS_TO_SKIP = {"banco-inter"}
+ACCOUNTS_TO_SKIP = set()
 
 
 def sanitize_name(name: str) -> str:
@@ -267,103 +267,19 @@ def generate_history_file(
             account_name,
         )
 
-        is_transfer = (
-            "transferencia" in category.lower()
-            or "transfer" in desc.lower()
-            or "pagto cartao" in desc.lower()
-            or "pagamento de fatura" in desc.lower()
+        regular_entries.append(
+            {
+                "date": date,
+                "flag": flag,
+                "desc": desc,
+                "category": category,
+                "value": value,
+                "asset_account": asset_account,
+                "liability_account": liability_account,
+                "account_type": account_type,
+                "origin_id": origin_id,
+            }
         )
-
-        if is_transfer:
-            all_transfers.append(
-                {
-                    "date": date,
-                    "flag": flag,
-                    "desc": desc,
-                    "value": value,
-                    "account_name": account_name,
-                    "account_type": account_type,
-                    "asset_account": asset_account,
-                    "liability_account": liability_account,
-                    "origin_id": origin_id,
-                }
-            )
-        else:
-            regular_entries.append(
-                {
-                    "date": date,
-                    "flag": flag,
-                    "desc": desc,
-                    "category": category,
-                    "value": value,
-                    "asset_account": asset_account,
-                    "liability_account": liability_account,
-                    "account_type": account_type,
-                    "origin_id": origin_id,
-                }
-            )
-
-    paired = set()
-
-    for i, t1 in enumerate(all_transfers):
-        if i in paired:
-            continue
-        for j, t2 in enumerate(all_transfers):
-            if j <= i or j in paired:
-                continue
-            if t1["date"] != t2["date"]:
-                continue
-            if abs(abs(t1["value"]) - abs(t2["value"])) > 0.01:
-                continue
-
-            paired.add(i)
-            paired.add(j)
-
-            val1 = t1["value"]
-            val2 = t2["value"]
-
-            if t1["account_type"] == "Assets" and t2["account_type"] == "Assets":
-                from_acc = t1["asset_account"] if val1 < 0 else t2["asset_account"]
-                to_acc = t2["asset_account"] if val2 > 0 else t1["asset_account"]
-            elif (
-                t1["account_type"] == "Liabilities"
-                and t2["account_type"] == "Liabilities"
-            ):
-                from_acc = (
-                    t1["liability_account"] if val1 < 0 else t2["liability_account"]
-                )
-                to_acc = (
-                    t2["liability_account"] if val2 > 0 else t1["liability_account"]
-                )
-            elif t1["account_type"] == "Assets" and t2["account_type"] == "Liabilities":
-                if val1 < 0:
-                    from_acc = t1["asset_account"]
-                    to_acc = t2["liability_account"]
-                else:
-                    from_acc = t2["liability_account"]
-                    to_acc = t1["asset_account"]
-            elif t1["account_type"] == "Liabilities" and t2["account_type"] == "Assets":
-                if val2 < 0:
-                    from_acc = t2["asset_account"]
-                    to_acc = t1["liability_account"]
-                else:
-                    from_acc = t1["liability_account"]
-                    to_acc = t2["asset_account"]
-            else:
-                continue
-
-            abs_val = abs(t1["value"])
-            lines.append(f'{t1["date"]} {t1["flag"]} "{t1["desc"]}"')
-            lines.append(f"  {from_acc:40s} {abs_val:.2f} BRL")
-            lines.append(f"  {to_acc:40s} -{abs_val:.2f} BRL")
-            lines.append(f'  origem_id: "{t1["origin_id"]}"')
-            lines.append("")
-            break
-
-    for i, t in enumerate(all_transfers):
-        if i in paired:
-            continue
-        continue
 
     for entry in regular_entries:
         date = entry["date"]
@@ -378,28 +294,25 @@ def generate_history_file(
 
         abs_value = abs(value)
 
+        # Simplificado: apenas classificar como despesa ou receita
         if value < 0:
             if account_type == "Liabilities":
                 debit_account = f"Expenses:{category}"
                 credit_account = liability_account
-                debit_val = abs_value
-                credit_val = -abs_value
             else:
                 debit_account = f"Expenses:{category}"
                 credit_account = asset_account
-                debit_val = abs_value
-                credit_val = -abs_value
+            debit_val = abs_value
+            credit_val = -abs_value
         else:
             if account_type == "Liabilities":
                 debit_account = liability_account
-                credit_account = f"Income:{category}"
-                debit_val = abs_value
-                credit_val = -abs_value
+                credit_account = "Assets:BR:BancoInter"
             else:
                 debit_account = asset_account
                 credit_account = f"Income:{category}"
-                debit_val = abs_value
-                credit_val = -abs_value
+            debit_val = abs_value
+            credit_val = -abs_value
 
         lines.append(f'{date} {flag} "{desc}"')
         lines.append(f"  {debit_account:40s} {debit_val:>10.2f} BRL")
