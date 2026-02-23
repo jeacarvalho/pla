@@ -14,7 +14,7 @@ SELECT
   sum(ifelse(flag = '*', position, null)) as Saldo_Real,
   sum(ifelse(flag = '!', position, null)) as Comprometido,
   sum(position) as Saldo_Projetado
-WHERE account ~ 'Assets:BR|Liabilities:Cartao'
+WHERE account ~ 'Assets:Circulante|Liabilities:Circulante'
 GROUP BY account
 ORDER BY account
 ```"

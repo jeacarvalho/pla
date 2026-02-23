@@ -2,37 +2,37 @@
 ; Contabilidade de Partidas Dobradas
 
 2024-12-31 * "Saldo inicial - Renda Variável Inter"
-  Assets:BR:RendaVariavelInter           53750.79 BRL
-  Equity:SaldoInicial                   -53750.79 BRL
+  Assets:NaoCirculante:Investimentos:Acoes  53750.79 BRL
+  Equity:SaldoInicial                        -53750.79 BRL
 
 2024-12-31 * "Saldo inicial - Caixa"
-  Assets:BR:Caixa                          -19.01 BRL
-  Equity:SaldoInicial                      19.01 BRL
+  Assets:Circulante:Disponibilidades:Caixa  -19.01 BRL
+  Equity:SaldoInicial                        19.01 BRL
 
 2024-12-31 * "Saldo inicial - BB Corrente"
-  Assets:BR:BbCorrente                   40820.78 BRL
-  Equity:SaldoInicial                   -40820.78 BRL
+  Assets:Circulante:Disponibilidades:BB    40820.78 BRL
+  Equity:SaldoInicial                       -40820.78 BRL
 
 2024-12-31 * "Saldo inicial - Banco Inter"
-  Assets:BR:BancoInter                    1369.09 BRL
-  Equity:SaldoInicial                   -1369.09 BRL
+  Assets:Circulante:Disponibilidades:Inter  1369.09 BRL
+  Equity:SaldoInicial                       -1369.09 BRL
 
 2024-12-31 * "Saldo inicial - C6 Bank"
-  Assets:BR:C6Bank                          0.01 BRL
-  Equity:SaldoInicial                      -0.01 BRL
+  Assets:Circulante:Disponibilidades:C6       0.01 BRL
+  Equity:SaldoInicial                        -0.01 BRL
 
 2024-12-31 * "Saldo inicial - CDB Inter"
-  Assets:BR:CdbInter                        -56.84 BRL
-  Equity:SaldoInicial                      56.84 BRL
+  Assets:Circulante:Investimentos:CDB:Inter  -56.84 BRL
+  Equity:SaldoInicial                        56.84 BRL
 
 2024-12-31 * "Saldo inicial - Cartão de crédito Inter"
-  Liabilities:Cartao:CartaoDeCreditoInter  -2948.41 BRL
-  Equity:SaldoInicial                     2948.41 BRL
+  Liabilities:Circulante:Cartoes:Inter       -2948.41 BRL
+  Equity:SaldoInicial                       2948.41 BRL
 
 2024-12-31 * "Saldo inicial - Saraiva"
-  Liabilities:Cartao:Saraiva                -675.28 BRL
-  Equity:SaldoInicial                      675.28 BRL
+  Liabilities:Circulante:Cartoes:Saraiva  -675.28 BRL
+  Equity:SaldoInicial                       675.28 BRL
 
 2024-12-31 * "Saldo inicial - Smiles"
-  Liabilities:Cartao:SmilesBbPlatinum     -24102.48 BRL
-  Equity:SaldoInicial                     24102.48 BRL
+  Liabilities:Circulante:Cartoes:SmilesBbPlatinum  -24102.48 BRL
+  Equity:SaldoInicial                         24102.48 BRL
