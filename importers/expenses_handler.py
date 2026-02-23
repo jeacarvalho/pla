@@ -119,8 +119,17 @@ def generate_expense_entries(
         status = row.get("Situação", "Pago")
         flag = "*" if status == "Pago" else "!"
 
-        debit = f"Expenses:{categoria}"
-        credit = get_account_path(conta)
+        conta_beancount = row.get("conta_beancount")
+        if conta_beancount and pd.notna(conta_beancount):
+            debit = str(conta_beancount).strip()
+        else:
+            debit = f"Expenses:{categoria}"
+
+        conta_beancount_credit = row.get("conta_beancount")
+        if conta_beancount_credit and pd.notna(conta_beancount_credit):
+            credit = str(conta_beancount_credit).strip()
+        else:
+            credit = get_account_path(conta)
 
         lines.append(f'{date} {flag} "{desc}"')
         lines.append(f"  {debit:40s} {value:>10.2f} BRL")

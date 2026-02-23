@@ -401,6 +401,9 @@ Plaintext
 
 ├── ledger/                # Arquivos fonte do Beancount (.beancount)
 ├── importers/             # Scripts Python de ETL
+├── tools/                 # Scripts de importação e utilitários
+│   ├── smart_ofx_importer.py
+│   └── mapping.csv
 ├── config/                # Mapeamentos YAML e regras de classificação
 ├── data/                  # [DADOS SENSÍVEIS - NÃO SINCRONIZAR]
 └── Makefile               # Atalhos para automação
@@ -485,4 +488,65 @@ Cartões/Empréstimos → Devem ser mapeadas para Liabilities:[Nome-do-Cartao].
 
 Nota: O script de importação deve gerar um arquivo accounts.beancount preliminar contendo as declarações open para cada conta descoberta.
 
-**Última atualização**: 2026-02-20
+---
+
+## Sistema de Importação OFX
+
+### tools/smart_ofx_importer.py
+Script CLI para importar transações de arquivos OFX para Beancount.
+
+#### Uso
+```bash
+python3 tools/smart_ofx_importer.py <arquivo.ofx> --account Assets:Circulante:Disponibilidades:Inter
+```
+
+#### Parâmetros
+| Parâmetro | Descrição | Default |
+|-----------|------------|---------|
+| `ofx_file` | Arquivo OFX de entrada | obrigatório |
+| `--account` | Conta bancária de destino | obrigatório |
+| `--mapping` | Arquivo mapping.csv | `tools/mapping.csv` |
+| `--output` | Arquivo de saída | `ledger/imports.beancount` |
+| `--history` | Arquivo history.beancount | `ledger/history.beancount` |
+| `--usuario` | Nome para detecção de transferências próprias | `Jose Eduardo` |
+
+#### Funcionalidades
+- Deduplicação via FITID (compara com history e imports)
+- Classificação automática via mapping.csv
+- Partidas dobradas (valores invertidos)
+- Metadado `origem_id` para rastreabilidade
+- Metadado `transferencia: "true"` para transferências próprias
+- Validação com bean-check após importação
+- Tratamento de encoding (UTF-8, latin-1, "UTF - 8" com espaços)
+
+### tools/mapping.csv
+Arquivo de mapeamento entre padrões de descrição e contas Beancount.
+
+#### Formato
+```
+padrao,conta_alvo
+LUZ,Expenses:Moradia:Luz
+```
+
+#### Regras de Matching
+1. Prioridade para padrões mais longos (mais específicos)
+2. Matching: texto_busca in padrao (texto do banco contido no padrão)
+3. Antes de adicionar padrão genérico, validar se não causa falsos positivos
+4. Padrões específicos vencem padrões genéricos
+
+#### Pipeline de Importação
+1. Importar para `imports.beancount` (stage de validação)
+2. Validar lançamentos manualmente
+3. Mover para `history.beancount` após validação
+
+### ledger/main.beancount - Ordem de Include
+```
+include "accounts.beancount"
+include "balances.beancount"
+include "imports.beancount"
+include "history.beancount"
+include "budget.beancount"
+include "queries.beancount"
+```
+
+**Última atualização**: 2026-02-23

@@ -172,8 +172,17 @@ def _build_card_payment_entry(row: pd.Series, cartao: str) -> list[str]:
     status = row.get("Situação", "Pago")
     flag = "*" if status == "Pago" else "!"
 
-    debit = f"Liabilities:Cartao:{cartao}"
-    credit = get_account_path(conta)
+    conta_beancount = row.get("conta_beancount")
+    if conta_beancount and pd.notna(conta_beancount):
+        debit = str(conta_beancount).strip()
+    else:
+        debit = f"Liabilities:Cartao:{cartao}"
+
+    conta_beancount_credit = row.get("conta_beancount")
+    if conta_beancount_credit and pd.notna(conta_beancount_credit):
+        credit = str(conta_beancount_credit).strip()
+    else:
+        credit = get_account_path(conta)
 
     return [
         f'{date} {flag} "{desc}"',

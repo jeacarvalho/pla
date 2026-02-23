@@ -113,8 +113,17 @@ def generate_income_entries(
         status = row.get("Situação", "Pago")
         flag = "*" if status == "Pago" else "!"
 
-        debit = get_account_path(conta)
-        credit = f"Income:{categoria}"
+        conta_beancount = row.get("conta_beancount")
+        if conta_beancount and pd.notna(conta_beancount):
+            credit = str(conta_beancount).strip()
+        else:
+            credit = f"Income:{categoria}"
+
+        conta_beancount_debit = row.get("conta_beancount")
+        if conta_beancount_debit and pd.notna(conta_beancount_debit):
+            debit = str(conta_beancount_debit).strip()
+        else:
+            debit = get_account_path(conta)
 
         lines.append(f'{date} {flag} "{desc}"')
         lines.append(f"  {debit:40s} {value:>10.2f} BRL")

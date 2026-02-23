@@ -39,8 +39,12 @@ def generate_accounts_file(
     income_categories: set,
     ledger_dir: Path,
     accounts_with_transactions: set,
+    conta_beancount_accounts: set | None = None,
 ) -> None:
     """Gera arquivo de contas Beancount."""
+    if conta_beancount_accounts is None:
+        conta_beancount_accounts = set()
+
     expense_categories = expense_categories | {"SaquesATM", "Boletos", "OutrosCartao"}
     income_categories = income_categories | {"TransferenciasRecebidas"}
 
@@ -56,19 +60,26 @@ def generate_accounts_file(
         "",
     ]
 
-    for acc in sorted(bank_accounts):
-        if acc in accounts_with_transactions:
-            lines.append(f'{OPEN_DATE} open Assets:BR:{acc} BRL "STRICT"')
-    lines.append("")
-    for acc in sorted(credit_cards):
-        if acc in accounts_with_transactions:
-            lines.append(f'{OPEN_DATE} open Liabilities:Cartao:{acc} BRL "STRICT"')
-    lines.append("")
+    # Bank accounts and credit cards now come from conta_beancount column
+    # Not generating automatically anymore
+
     for exp in sorted(expense_categories):
         lines.append(f'{OPEN_DATE} open Expenses:{exp} BRL "STRICT"')
     lines.append("")
     for inc in sorted(income_categories):
         lines.append(f'{OPEN_DATE} open Income:{inc} BRL "STRICT"')
+
+    expense_categories_full = {f"Expenses:{c}" for c in expense_categories}
+    income_categories_full = {f"Income:{c}" for c in income_categories}
+    existing_accounts = expense_categories_full | income_categories_full
+
+    if conta_beancount_accounts:
+        lines.append("")
+        lines.append("; Custom accounts from conta_beancount column")
+        for acc in sorted(conta_beancount_accounts):
+            acc_clean = acc.strip()
+            if acc_clean not in existing_accounts:
+                lines.append(f'{OPEN_DATE} open {acc_clean} BRL "STRICT"')
 
     with open(ledger_dir / "accounts.beancount", "w") as f:
         f.write("\n".join(lines))
@@ -150,6 +161,12 @@ def main():
     expense_categories, income_categories = extract_categories_from_df(df)
 
     accounts_with_transactions = set(df["CONTA"].dropna().unique())
+
+    conta_beancount_accounts = set()
+    for val in df["conta_beancount"].dropna().unique():
+        if val and str(val).strip():
+            conta_beancount_accounts.add(str(val).strip())
+
     generate_accounts_file(
         bank_accounts,
         credit_cards,
@@ -157,6 +174,7 @@ def main():
         income_categories,
         ledger_dir,
         accounts_with_transactions,
+        conta_beancount_accounts,
     )
 
     logger.info("Gerando lançamentos...")
