@@ -4,7 +4,7 @@ Sistema de contabilidade pessoal de partidas dobradas baseado em Beancount (Plai
 
 ## Objetivo
 
-Automação da vida financeira pessoal integrando dados legados (Organizze) e dados em tempo real (Open Finance via Pluggy).
+Automação da vida financeira pessoal integrando dados legados (Organizze) e importações manuais periódicas.
 
 ## Quick Start
 

@@ -370,14 +370,14 @@ test(api): adiciona teste de integração
 # Plano do projeto para o código nesse repositório
 
 1. Visão Geral
-O PLA (Personal Ledger Automation) é um sistema de contabilidade pessoal de partidas dobradas baseado em Beancount (Plain Text Accounting). O objetivo é ter uma visão robusta, auditável e automatizada da vida financeira, integrando dados legados (Organizze) e dados em tempo real (Open Finance via Pluggy).
+O PLA (Personal Ledger Automation) é um sistema de contabilidade pessoal de partidas dobradas baseado em Beancount (Plain Text Accounting). O objetivo é ter uma visão robusta, auditável e automatizada da vida financeira, integrando dados legados (Organizze) e importações manuais periódicas.
 
 2. Pilha Tecnológica
 Core: Python 3.10+ & Beancount.
 
 UI: Fava (Visualização web).
 
-Integração: Pluggy API (Open Finance).
+Integração: Importação manual periódica (XLS/CSV).
 
 Versionamento: Git (GitHub).
 
@@ -409,7 +409,7 @@ Ao codificar neste projeto, siga estas diretrizes:
 
 Partidas Dobradas: Toda transação deve somar zero. Nunca crie uma transação "solta".
 
-Deduplicação Obrigatória: Use metadados (ex: pluggy_id ou organizze_hash) para garantir que nenhuma transação seja importada duas vezes.
+Deduplicação Obrigatória: Use metadados (ex: organizze_hash) para garantir que nenhuma transação seja importada duas vezes.
 
 Validação: Sempre valide as saídas geradas com o comando bean-check.
 
@@ -468,11 +468,9 @@ Beancount usa contabilidade de **partidas dobradas**. Cada transação deve soma
 
 [ ] Fase 2: Migração Organizze (CSV para Beancount).
 
-[ ] Fase 3: Conector Pluggy (API para Beancount).
+[ ] Fase 3: Motor de Projeção de Fluxo de Caixa.
 
-[ ] Fase 4: Motor de Projeção de Fluxo de Caixa.
-
-[ ] Fase 5: Dashboards e Consultas Customizadas.
+[ ] Fase 4: Dashboards e Consultas Customizadas.
 
 7. Descoberta de Contas (Data-Driven)
 O plano de contas não será fixo. Ele será derivado do histórico do Organizze.
